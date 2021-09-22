@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import React from 'react';
+import { useRecord } from '../../custom-hooks/useRecord';
 
 export default function App() {
   const { current, undo, redo, record } = useRecord('#FF0000');
