@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import App from './App';
@@ -27,10 +28,45 @@ describe('App', () => {
       expect(square).toHaveStyle({ 'background-color': 'rgb(0, 0, 255)' });
     });
 
+    fireEvent.click(undoButton);
+    waitFor(() => {
+      expect(square).toHaveStyle({ 'background-color': 'rgb(255, 0, 0)' });
+    });
+
     const redoButton = screen.getByText('redo');
     fireEvent.click(redoButton);
     waitFor(() => {
+      expect(square).toHaveStyle({ 'background-color': 'rgb(0, 0, 255)' });
+    });
+
+    fireEvent.change(colorPicker, 'rbg(255, 255, 0)');
+    waitFor(() => {
+      expect(square).toHaveStyle({ 'background-color': 'rgb(255, 255, 0)' });
+    });
+
+    fireEvent.click(undoButton);
+    waitFor(() => {
+      expect(square).toHaveStyle({ 'background-color': 'rgb(0, 0, 255)' });
+    });
+
+    fireEvent.click(undoButton);
+    waitFor(() => {
       expect(square).toHaveStyle({ 'background-color': 'rgb(255, 0, 0)' });
+    });
+
+    fireEvent.click(redoButton);
+    waitFor(() => {
+      expect(square).toHaveStyle({ 'background-color': 'rgb(0, 0, 255)' });
+    });
+
+    fireEvent.click(redoButton);
+    waitFor(() => {
+      expect(square).toHaveStyle({ 'background-color': 'rgb(255, 255, 0)' });
+    });
+
+    fireEvent.click(redoButton);
+    waitFor(() => {
+      expect(square).toHaveStyle({ 'background-color': 'rgb(0, 0, 255)' });
     });
   });
 });
