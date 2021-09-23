@@ -20,5 +20,17 @@ describe('App', () => {
     waitFor(() => {
       expect(square).toHaveStyle({ 'background-color': 'rgb(0, 255, 0)' });
     });
+
+    const undoButton = screen.getByText('undo');
+    fireEvent.click(undoButton);
+    waitFor(() => {
+      expect(square).toHaveStyle({ 'background-color': 'rgb(0, 0, 255)' });
+    });
+
+    const redoButton = screen.getByText('redo');
+    fireEvent.click(redoButton);
+    waitFor(() => {
+      expect(square).toHaveStyle({ 'background-color': 'rgb(255, 0, 0)' });
+    });
   });
 });

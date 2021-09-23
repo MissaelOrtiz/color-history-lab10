@@ -11,12 +11,18 @@ export const useRecord = (initialColor = '#00FF00') => {
   };
 
   const undo = () => {
-    const currentIndex = history.indexOf(current);
+    const currentHistory = history ? history : [];
+    const currentIndex = history ? history.indexOf(current) : 0;
     const targetIndex = currentIndex !== 0 ? currentIndex - 1 : 0;
-    setCurrent(history[targetIndex]);
+    setCurrent(currentHistory[targetIndex]);
   };
 
-  const redo = () => {};
+  const redo = () => {
+    const currentHistory = history ? history : [];
+    const currentIndex = history ? history.indexOf(current) : 0;
+    const targetIndex = currentIndex !== 0 ? currentIndex + 1 : 0;
+    setCurrent(currentHistory[targetIndex]);
+  };
 
   useEffect(() => {
     setHistory((previousHistory) => {
